@@ -14,7 +14,6 @@ import java.util.Date;
 @Entity
 @Table(name="Cooking_table")
 @Data
-
 public class Cooking  {
 
 
@@ -61,30 +60,33 @@ public class Cooking  {
     @PostPersist
     public void onPostPersist(){
 
-
-        OrderAccepted orderAccepted = new OrderAccepted(this);
-        orderAccepted.setStatus("주문수락됨");
-        orderAccepted.publishAfterCommit();
-
-
-
-        OrderRejected orderRejected = new OrderRejected(this);
-        orderRejected.setStatus("주문거절됨");
-        orderRejected.publishAfterCommit();
-
-
-
-        CookStarted cookStarted = new CookStarted(this);
-        cookStarted.setStatus("요리시작됨");
-        cookStarted.publishAfterCommit();
-
-
-
-        CookFinisied cookFinisied = new CookFinisied(this);
-        cookFinisied.setStatus("요리완료됨");
-        cookFinisied.publishAfterCommit();
-
     }
+    @PostUpdate
+    public void onPostUpdate(){
+        // OrderAccepted orderAccepted = new OrderAccepted(this);
+        // orderAccepted.setStatus("주문수락됨");
+        // orderAccepted.publishAfterCommit();
+
+
+
+        // OrderRejected orderRejected = new OrderRejected(this);
+        // orderRejected.setStatus("주문거절됨");
+        // orderRejected.publishAfterCommit();
+
+
+
+        // CookStarted cookStarted = new CookStarted(this);
+        // cookStarted.setStatus("요리시작됨");
+        // cookStarted.publishAfterCommit();
+
+
+
+        // CookFinisied cookFinisied = new CookFinisied(this);
+        // cookFinisied.setStatus("요리완료됨");
+        // cookFinisied.publishAfterCommit();
+    }
+
+
     @PreRemove
     public void onPreRemove(){
     }
@@ -93,10 +95,28 @@ public class Cooking  {
         CookingRepository cookingRepository = StoreApplication.applicationContext.getBean(CookingRepository.class);
         return cookingRepository;
     }
-
-
-
     public void start(){
+        this.setStatus("요리시작됨");
+        CookStarted cookStarted = new CookStarted(this);
+        cookStarted.publishAfterCommit();
+    }
+
+    public void finish(){
+        this.setStatus("요리완료됨");
+        CookFinisied cookFinisied = new CookFinisied(this);
+        cookFinisied.publishAfterCommit();
+    }
+
+    public void accept(){
+        this.setStatus("주문수락됨");
+        OrderAccepted orderAccepted = new OrderAccepted(this);
+        orderAccepted.publishAfterCommit();
+    }
+
+    public void reject(){
+        this.setStatus("주문거절됨");
+        OrderRejected orderRejected = new OrderRejected(this);
+        orderRejected.publishAfterCommit();
     }
 
     public static void sendOrderInfo(Paid paid){
@@ -133,7 +153,7 @@ public class Cooking  {
         /** Example 2:  finding and process */
         
         repository().findByOrderId(orderCanceled.getId()).ifPresent(cooking->{
-            cooking.setStatus("주문취소됨");
+            cooking.setStatus(orderCanceled.getStatus());
             repository().save(cooking);
          });
         

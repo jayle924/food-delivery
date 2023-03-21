@@ -24,6 +24,26 @@ public class PolicyHandler{
     @Autowired
     fooddelivery.external.OrderService orderService;
 
+    @StreamListener(value=KafkaProcessor.INPUT, condition="headers['type']=='OrderPlaced'")
+    public void wheneverOrderPlaced_Notify(@Payload OrderPlaced orderPlaced){
+
+        OrderPlaced event = orderPlaced;
+        System.out.println("\n\n##### listener Notify : " + orderPlaced + "\n\n");
+
+        // REST Request Sample
+        
+        // orderService.getOrder(/** mapping value needed */);
+
+
+        // Comments // 
+		//고객에게 주문에 관한 정보 알림
+
+        // Sample Logic //
+
+        
+
+    }
+
     @StreamListener(value=KafkaProcessor.INPUT, condition="headers['type']=='OrderAccepted'")
     public void wheneverOrderAccepted_Notify(@Payload OrderAccepted orderAccepted){
 

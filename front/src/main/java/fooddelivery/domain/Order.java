@@ -65,23 +65,20 @@ public class Order  {
     @PostPersist
     public void onPostPersist(){
 
-
+        this.setStatus("주문됨");
         OrderPlaced orderPlaced = new OrderPlaced(this);
         orderPlaced.publishAfterCommit();
-
-    }
-    @PostUpdate
-    public void onPostUpdate(){
-
-
-        OrderCanceled orderCanceled = new OrderCanceled(this);
-        orderCanceled.publishAfterCommit();
-
     }
     @PreRemove
     public void onPreRemove(){
     }
 
+    public void cancel(){
+        this.setStatus("주문취소됨");
+        OrderCanceled orderCanceled = new OrderCanceled(this);
+        orderCanceled.publishAfterCommit();
+    }
+    
     public static OrderRepository repository(){
         OrderRepository orderRepository = FrontApplication.applicationContext.getBean(OrderRepository.class);
         return orderRepository;

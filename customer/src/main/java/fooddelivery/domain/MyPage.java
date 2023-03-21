@@ -15,6 +15,4 @@ public class MyPage {
         //@GeneratedValue(strategy=GenerationType.AUTO)
         private Long id;
         private String status;
-
-
 }

@@ -53,15 +53,14 @@ public class Delivery  {
     @PostPersist
     public void onPostPersist(){
 
+        // Picked picked = new Picked(this);
+        // picked.setStatus("요리픽됨");
+        // picked.publishAfterCommit();
 
-        Delivered delivered = new Delivered(this);
-        delivered.publishAfterCommit();
 
-
-
-        Picked picked = new Picked(this);
-        picked.publishAfterCommit();
-
+        // Delivered delivered = new Delivered(this);
+        // delivered.setStatus("배송됨");
+        // delivered.publishAfterCommit();
     }
 
     public static DeliveryRepository repository(){
@@ -69,8 +68,17 @@ public class Delivery  {
         return deliveryRepository;
     }
 
+    public void pick(){
+        this.setStatus("요리픽됨");
+        Picked picked = new Picked(this);
+        picked.publishAfterCommit();
+    }
 
-
+    public void confirm(){
+        this.setStatus("배송완료됨");
+        Delivered delivered = new Delivered(this);
+        delivered.publishAfterCommit();
+    }
 
     public static void addPickableList(CookFinisied cookFinisied){
 
@@ -79,7 +87,7 @@ public class Delivery  {
         delivery.setOrderId(cookFinisied.getOrderId());
         delivery.setFoodId(cookFinisied.getFoodId());
         delivery.setAddress(cookFinisied.getAddress());
-        delivery.setStatus("요리완료됨");
+        delivery.setStatus(cookFinisied.getStatus());
         repository().save(delivery);
 
         /** Example 2:  finding and process

@@ -54,6 +54,7 @@ public class Payment  {
 
 
         Paid paid = new Paid(this);
+        paid.setStatus("결제됨");
         paid.publishAfterCommit();
 
     }
@@ -73,7 +74,7 @@ public class Payment  {
         payment.setOrderId(String.valueOf(orderPlaced.getId()));
         payment.setFoodId(orderPlaced.getFoodId());
         payment.setAddress(orderPlaced.getAddress());
-        payment.setStatus("결제됨");
+        payment.setStatus(orderPlaced.getStatus());
         repository().save(payment);
         /** Example 2:  finding and process
         
