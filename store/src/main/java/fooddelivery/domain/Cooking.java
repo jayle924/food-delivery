@@ -63,21 +63,25 @@ public class Cooking  {
 
 
         OrderAccepted orderAccepted = new OrderAccepted(this);
+        orderAccepted.setStatus("주문수락됨");
         orderAccepted.publishAfterCommit();
 
 
 
         OrderRejected orderRejected = new OrderRejected(this);
+        orderRejected.setStatus("주문거절됨");
         orderRejected.publishAfterCommit();
 
 
 
         CookStarted cookStarted = new CookStarted(this);
+        cookStarted.setStatus("요리시작됨");
         cookStarted.publishAfterCommit();
 
 
 
         CookFinisied cookFinisied = new CookFinisied(this);
+        cookFinisied.setStatus("요리완료됨");
         cookFinisied.publishAfterCommit();
 
     }
@@ -97,11 +101,13 @@ public class Cooking  {
 
     public static void sendOrderInfo(Paid paid){
 
-        /** Example 1:  new item 
+        /** Example 1:  new item */ 
         Cooking cooking = new Cooking();
+        cooking.setOrderId(paid.getOrderId());
+        cooking.setFoodId(paid.getFoodId());
+        cooking.setAddress(paid.getAddress());
+        cooking.setStatus(paid.getStatus());
         repository().save(cooking);
-
-        */
 
         /** Example 2:  finding and process
         
@@ -124,17 +130,12 @@ public class Cooking  {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process */
         
-        repository().findById(orderCanceled.get???()).ifPresent(cooking->{
-            
-            cooking // do something
+        repository().findByOrderId(orderCanceled.getId()).ifPresent(cooking->{
+            cooking.setStatus("주문취소됨");
             repository().save(cooking);
-
-
          });
-        */
-
         
     }
 

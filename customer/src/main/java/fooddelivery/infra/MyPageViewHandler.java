@@ -27,7 +27,7 @@ public class MyPageViewHandler {
             MyPage myPage = new MyPage();
             // view 객체에 이벤트의 Value 를 set 함
             myPage.setId(orderPlaced.getId());
-            myPage.setStatus("주문됨");
+            myPage.setStatus(orderPlaced.getStatus());
             // view 레파지 토리에 save
             myPageRepository.save(myPage);
 
@@ -47,7 +47,7 @@ public class MyPageViewHandler {
             if( myPageOptional.isPresent()) {
                  MyPage myPage = myPageOptional.get();
             // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("결제됨");    
+                myPage.setStatus(paid.getStatus());    
                 // view 레파지 토리에 save
                  myPageRepository.save(myPage);
                 }
@@ -67,7 +67,7 @@ public class MyPageViewHandler {
             if( myPageOptional.isPresent()) {
                  MyPage myPage = myPageOptional.get();
             // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("주문접수됨");    
+                myPage.setStatus(orderAccepted.getStatus());    
                 // view 레파지 토리에 save
                  myPageRepository.save(myPage);
                 }
@@ -87,7 +87,7 @@ public class MyPageViewHandler {
             if( myPageOptional.isPresent()) {
                  MyPage myPage = myPageOptional.get();
             // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("주문거부됨");    
+                myPage.setStatus(orderRejected.getStatus());    
                 // view 레파지 토리에 save
                  myPageRepository.save(myPage);
                 }
@@ -107,7 +107,7 @@ public class MyPageViewHandler {
             if( myPageOptional.isPresent()) {
                  MyPage myPage = myPageOptional.get();
             // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("주문취소함");    
+                myPage.setStatus(orderCanceled.getStatus());    
                 // view 레파지 토리에 save
                  myPageRepository.save(myPage);
                 }
@@ -127,7 +127,7 @@ public class MyPageViewHandler {
             if( myPageOptional.isPresent()) {
                  MyPage myPage = myPageOptional.get();
             // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("음식픽업됨");    
+                myPage.setStatus(picked.getStatus());    
                 // view 레파지 토리에 save
                  myPageRepository.save(myPage);
                 }
@@ -147,7 +147,7 @@ public class MyPageViewHandler {
             if( myPageOptional.isPresent()) {
                  MyPage myPage = myPageOptional.get();
             // view 객체에 이벤트의 eventDirectValue 를 set 함
-                myPage.setStatus("배송완료됨");    
+                myPage.setStatus(delivered.getStatus());    
                 // view 레파지 토리에 save
                  myPageRepository.save(myPage);
                 }

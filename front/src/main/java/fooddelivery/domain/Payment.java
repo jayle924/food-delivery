@@ -68,12 +68,13 @@ public class Payment  {
 
     public static void pay(OrderPlaced orderPlaced){
 
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Payment payment = new Payment();
+        payment.setOrderId(String.valueOf(orderPlaced.getId()));
+        payment.setFoodId(orderPlaced.getFoodId());
+        payment.setAddress(orderPlaced.getAddress());
+        payment.setStatus("결제됨");
         repository().save(payment);
-
-        */
-
         /** Example 2:  finding and process
         
         repository().findById(orderPlaced.get???()).ifPresent(payment->{

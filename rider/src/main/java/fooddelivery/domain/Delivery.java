@@ -74,11 +74,13 @@ public class Delivery  {
 
     public static void addPickableList(CookFinisied cookFinisied){
 
-        /** Example 1:  new item 
+        /** Example 1:  new item */
         Delivery delivery = new Delivery();
+        delivery.setOrderId(cookFinisied.getOrderId());
+        delivery.setFoodId(cookFinisied.getFoodId());
+        delivery.setAddress(cookFinisied.getAddress());
+        delivery.setStatus("요리완료됨");
         repository().save(delivery);
-
-        */
 
         /** Example 2:  finding and process
         
